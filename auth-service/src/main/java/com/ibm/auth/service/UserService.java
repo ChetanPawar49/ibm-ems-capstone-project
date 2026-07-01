@@ -15,5 +15,5 @@ public interface UserService {
     ApiResponse<UserResponse> getUserById(String id);
 
     ApiResponse<UserResponse> updateUser(String id,
-                                         UpdateUserRequest request);
+            UpdateUserRequest request);
 }
