@@ -37,6 +37,9 @@ public class User {
     private boolean accountLocked = false;
 
     @Builder.Default
+    private boolean deleted = false;
+
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Builder.Default

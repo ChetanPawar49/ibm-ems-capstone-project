@@ -1,6 +1,7 @@
 package com.ibm.auth.controller;
 
 import com.ibm.auth.common.payload.ApiResponse;
+import com.ibm.auth.payload.request.AssignRoleRequest;
 import com.ibm.auth.payload.request.UpdateUserRequest;
 import com.ibm.auth.payload.response.UserResponse;
 import com.ibm.auth.service.UserService;
@@ -44,5 +45,39 @@ public class UserController {
             @PathVariable String id,
             @Valid @RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(userService.updateUser(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Void>> deleteUser(
+            @PathVariable String id) {
+
+        return ResponseEntity.ok(userService.deleteUser(id));
+    }
+
+    @PutMapping("/{id}/roles")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Void>> assignRoles(
+            @PathVariable String id,
+            @RequestBody AssignRoleRequest request) {
+
+        return ResponseEntity.ok(
+                userService.assignRoles(id, request.getRoles()));
+    }
+
+    @PutMapping("/{id}/enable")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Void>> enableUser(
+            @PathVariable String id) {
+
+        return ResponseEntity.ok(userService.enableUser(id));
+    }
+
+    @PutMapping("/{id}/disable")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Void>> disableUser(
+            @PathVariable String id) {
+
+        return ResponseEntity.ok(userService.disableUser(id));
     }
 }
